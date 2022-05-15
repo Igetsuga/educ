@@ -1,0 +1,332 @@
+\documentclass[a4paper,14pt]{article} % добrавить leqno в [] для нумерации слева
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+%\usepackage{mathtext} 				% русские буквы в фомулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{lipsum}                 % use \lipsum[1-4] \lipsum[] \lipum[2]
+%///////////////////////////////////////////////////////////
+
+% для красивых таблиц
+\usepackage{booktabs}
+
+%///////////////////////////////////////////////////////////
+
+% для кастомизации списков
+\usepackage{enumitem}
+% \begin{itemize}[noitemsep,nolistsep]
+
+%///////////////////////////////////////////////////////////
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%///////////////////////////////////////////////////////////
+
+% активные ссылки
+\usepackage[unicode]{hyperref}
+
+% для кастомных ссылок 
+\newcommand\myref[1]{\hyperref[#1]{#1}}
+
+\usepackage{cleveref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={calculus},
+    pdfpagemode=FullScreen,
+    }
+
+\urlstyle{same}
+
+%///////////////////////////////////////////////////////////
+
+%% Номера формул
+\mathtoolsset{showonlyrefs=false} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+%\usepackage{leqno} % Нумерация выражений слева
+
+%///////////////////////////////////////////////////////////
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs}    % Красивый матшрифт
+
+%///////////////////////////////////////////////////////////
+
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+%///////////////////////////////////////////////////////////
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+	
+%///////////////////////////////////////////////////////////
+
+% bigcdot ( \cdot < \bigcdot < \bullet )
+\usepackage{graphicx}
+\graphicspath{ {./prints/} }
+
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%///////////////////////////////////////////////////////////
+
+% Для обозначения множеств
+\newcommand\sR{{\mathbb R}}
+\newcommand\sQ{{\mathbb Q}}
+\newcommand\sZ{{\mathbb Z}}
+\newcommand\sN{{\mathbb N}}
+% Для обозначения разбиения отрезка
+\newcommand\sT{{\mathbb N}}
+% Для обозначения отрезка $[a,b]$
+\newcommand\ab{{$[a,b]$}}
+
+%///////////////////////////////////////////////////////////
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+\lstset{
+	literate={а}{{\selectfont\char224}}1
+	{б}{{\selectfont\char225}}1
+	{в}{{\selectfont\char226}}1
+	{г}{{\selectfont\char227}}1
+	{д}{{\selectfont\char228}}1
+	{е}{{\selectfont\char229}}1
+	{ё}{{\"e}}1
+	{ж}{{\selectfont\char230}}1
+	{з}{{\selectfont\char231}}1
+	{и}{{\selectfont\char232}}1
+	{й}{{\selectfont\char233}}1
+	{к}{{\selectfont\char234}}1
+	{л}{{\selectfont\char235}}1
+	{м}{{\selectfont\char236}}1
+	{н}{{\selectfont\char237}}1
+	{о}{{\selectfont\char238}}1
+	{п}{{\selectfont\char239}}1
+	{р}{{\selectfont\char240}}1
+	{с}{{\selectfont\char241}}1
+	{т}{{\selectfont\char242}}1
+	{у}{{\selectfont\char243}}1
+	{ф}{{\selectfont\char244}}1
+	{х}{{\selectfont\char245}}1
+	{ц}{{\selectfont\char246}}1
+	{ч}{{\selectfont\char247}}1
+	{ш}{{\selectfont\char248}}1
+	{щ}{{\selectfont\char249}}1
+	{ъ}{{\selectfont\char250}}1
+	{ы}{{\selectfont\char251}}1
+	{ь}{{\selectfont\char252}}1
+	{э}{{\selectfont\char253}}1
+	{ю}{{\selectfont\char254}}1
+	{я}{{\selectfont\char255}}1
+	{А}{{\selectfont\char192}}1
+	{Б}{{\selectfont\char193}}1
+	{В}{{\selectfont\char194}}1
+	{Г}{{\selectfont\char195}}1
+	{Д}{{\selectfont\char196}}1
+	{Е}{{\selectfont\char197}}1
+	{Ё}{{\"E}}1
+	{Ж}{{\selectfont\char198}}1
+	{З}{{\selectfont\char199}}1
+	{И}{{\selectfont\char200}}1
+	{Й}{{\selectfont\char201}}1
+	{К}{{\selectfont\char202}}1
+	{Л}{{\selectfont\char203}}1
+	{М}{{\selectfont\char204}}1
+	{Н}{{\selectfont\char205}}1
+	{О}{{\selectfont\char206}}1
+	{П}{{\selectfont\char207}}1
+	{Р}{{\selectfont\char208}}1
+	{С}{{\selectfont\char209}}1
+	{Т}{{\selectfont\char210}}1
+	{У}{{\selectfont\char211}}1
+	{Ф}{{\selectfont\char212}}1
+	{Х}{{\selectfont\char213}}1
+	{Ц}{{\selectfont\char214}}1
+	{Ч}{{\selectfont\char215}}1
+	{Ш}{{\selectfont\char216}}1
+	{Щ}{{\selectfont\char217}}1
+	{Ъ}{{\selectfont\char218}}1
+	{Ы}{{\selectfont\char219}}1
+	{Ь}{{\selectfont\char220}}1
+	{Э}{{\selectfont\char221}}1
+	{Ю}{{\selectfont\char222}}1
+	{Я}{{\selectfont\char223}}1
+}
+
+%///////////////////////////////////////////////////////////
+
+
+%///////////////////////////////////////////////////////////
+
+% Библиография
+\usepackage{cite}
+\usepackage{csquotes}
+%\renewcommand{\refname}{Список источников}  % По умолчанию "Список литературы" (article)
+%\renewcommand{\bibname}{Литература}  % По умолчанию "Литература" (book и report)
+
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+
+
+%///////////////////////////////////////////////////////////
+
+% squared itemize 
+\newcounter{boxlblcounter}  
+\newcommand{\makeboxlabel}[1]{\fbox{#1.}\hfill}% \hfill fills the label box
+\newenvironment{boxlabel}
+  {\begin{list}
+    {\arabic{boxlblcounter}}
+    {\usecounter{boxlblcounter}
+     \setlength{\labelwidth}{3em}
+     \setlength{\labelsep}{0em}
+     \setlength{\itemsep}{2pt}
+     \setlength{\leftmargin}{1.5cm}
+     \setlength{\rightmargin}{2cm}
+     \setlength{\itemindent}{0em} 
+     \let\makelabel=\makeboxlabel
+    }
+  }
+{\end{list}}
+
+%///////////////////////////////////////////////////////////
+
+%///////////////////////////////////////////////////////////
+
+% Счетчик для теорем
+\newcounter{counter_theorem}[section]
+\setcounter{counter_theorem}{0}
+
+% Счетчик для лемм
+\newcounter{counter_lemma}[section]
+
+% Счетчик для доказательств
+\newcounter{counter_proof}[section]
+
+% Счетчик для определений
+\newcounter{counter_definition}[section]
+
+% Счетчик для утверждений
+\newcounter{counter_statement}[section]
+
+%///////////////////////////////////////////////////////////
+
+% Так можно задавать свою длину
+\newlength{\mylength}
+\settowidth{\mylength}{some text}
+% \begin{minipage}{\mylength}
+% {\textit{lipsum[1]}
+% }
+% \end{minipage}
+
+%///////////////////////////////////////////////////////////
+
+\newenvironment{title_theorem}[1]%
+{%
+    \addtocounter{counter_theorem}{1}%
+    \noindent \textbf{Теорема \thesection.\arabic{counter_theorem}.}
+    (#1) \newline \noindent%
+}%
+{\vspace{1cm}}
+
+\newenvironment{not_title_theorem}%
+{%
+    \addtocounter{counter_theorem}{1}%
+    \noindent \textbf{Теорема \thesection.\arabic{counter_theorem}.}
+    \newline \noindent%
+}%
+{\vspace{1cm}}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+\newtheorem{consequence}{Следствие}
+\newtheorem{statement}{Утверждение}
+
+
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+
+\title{Математический анализ. Семестр 2} 
+\author{Rustem Sirazetdinov}
+
+\begin{document}
+% 	\maketitle
+	
+	\newpage
+	\tableofcontents
+	
+% 	\newpage
+% 	\section*{Вступление}
+%     \lipsum[1-3]
+    
+    % \noindent \newline
+    % Если вы заметили ошибку, пожалуйста, напишите мне об этом: \url{avesirazetdinov@gmail.com} License: \textbf{WTFPL} 
+    
+    % \noindent
+    % Особая благодарность следующим людям:
+    % \begin{enumerate}
+    %     \item Спасибо
+    % \end{enumerate}
+    
+    %///////////////////////////////////////////////////////////
+    %///////////////////////////////////////////////////////////
+    
+    \newpage
+
+\end{document}
