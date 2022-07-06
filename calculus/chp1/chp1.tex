@@ -1,0 +1,311 @@
+\documentclass[a4paper,14pt]{report}
+\usepackage{fullpage}
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+\usepackage{imakeidx}
+
+
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+\usepackage{extsizes} % Возможность сделать 14-й шрифт
+
+%///////////////////////////////////////////////////////////
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+%\usepackage{mathtext} 				% русские буквы в фомулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{lipsum}                 % use \lipsum[1-4] \lipsum[] \lipum[2]
+%///////////////////////////////////////////////////////////
+% для красивых таблиц
+\usepackage{booktabs}
+
+%///////////////////////////////////////////////////////////
+% для кастомизации списков
+\usepackage{enumitem}
+%\begin{itemize}[noitemsep,nolistsep] %
+    
+%///////////////////////////////////////////////////////////
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%///////////////////////////////////////////////////////////   
+% активные ссылки
+\usepackage[unicode]{hyperref}
+\usepackage{cleveref}
+
+% для кастомных ссылок 
+\newcommand\myref[1]{\hyperref[#1]{#1}}
+
+% цвет ссылок
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={calculus},
+    pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+%///////////////////////////////////////////////////////////
+%% Номера формул
+\mathtoolsset{showonlyrefs=false} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+%\usepackage{leqno} % Нумерация выражений слева
+
+%///////////////////////////////////////////////////////////
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs}    % Красивый матшрифт
+
+%///////////////////////////////////////////////////////////   
+\usepackage{setspace} % Интерлиньяж
+%\onehalfspacing % Интерлиньяж 1.5
+%\doublespacing % Интерлиньяж 2
+%\singlespacing % Интерлиньяж 1
+
+%///////////////////////////////////////////////////////////    
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+    {\hbox{$\mathsurround=0pt #1$}}{}}
+
+%///////////////////////////////////////////////////////////
+\usepackage{graphicx}
+% \graphicspath{ {./prints/} }
+
+
+% bigcdot ( \cdot < \bigcdot < \bullet )
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%/////////////////////////////////////////////////////////// 
+% Для обозначения множеств
+\newcommand{\setR}{\ensuremath{\mathbb R}}
+\newcommand{\setQ}{\ensuremath{\mathbb Q}}
+\newcommand{\setZ}{\ensuremath{\mathbb Z}}
+\newcommand{\setN}{\ensuremath{\mathbb N}}
+% Для обозначения разбиения отрезка
+\newcommand{\partit}{\ensuremath{\mathbb P}}
+% Для обозначения отрезка $[a,b]$
+\newcommand{\ab}{\ensuremath{[a,b]}}
+% Для ссылки на страницу
+\newcommand{\str}[1]{%
+на стр. \pageref{#1}}
+% Больше или равно
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+% Меньше или равно
+
+
+%///////////////////////////////////////////////////////////
+% Библиография
+\usepackage{cite}
+\usepackage{csquotes}
+%\renewcommand{\refname}{Список источников}  % По умолчанию "Список литературы" (article)
+%\renewcommand{\bibname}{Литература}  % По умолчанию "Литература" (book и report)
+
+%///////////////////////////////////////////////////////////
+% squared itemize 
+\newcounter{boxlblcounter}  
+\newcommand{\makeboxlabel}[1]{\fbox{#1.}\hfill}% \hfill fills the label box
+\newenvironment{boxlabel}
+{\begin{list}
+        {\arabic{boxlblcounter}}
+        {
+            \usecounter{boxlblcounter}
+            \setlength{\labelwidth}{3em}
+            \setlength{\labelsep}{0em}
+            \setlength{\itemsep}{2pt}
+            \setlength{\leftmargin}{1.5cm}
+            \setlength{\rightmargin}{2cm}
+            \setlength{\itemindent}{0em} 
+            \let\makelabel=\makeboxlabel
+        }
+    }
+{\end{list}}
+
+%///////////////////////////////////////////////////////////
+% Счетчик для теорем
+\newcounter{counterTheorem}[section]
+\setcounter{counterTheorem}{0}
+
+% Счетчик для лемм
+\newcounter{counterLlemma}[section]
+
+% Счетчик для доказательств
+\newcounter{counterProof}[section]
+
+% Счетчик для определений
+\newcounter{counterDef}[section]
+\setcounter{counterDef}{1}
+% Счетчик для утверждений
+\newcounter{counterStatement}[section]
+
+%///////////////////////////////////////////////////////////
+% Так можно задавать свою длину
+\newlength{\mylength}
+\settowidth{\mylength}{some text}
+% \begin{minipage}{\mylength}
+    % {\textit{lipsum[1]}
+        % }
+    % \end{minipage}
+
+%///////////////////////////////////////////////////////////
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+\newtheorem{consequence}{Следствие}
+\newtheorem{statement}{Утверждение}
+
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+\newcommand{\rom}[1]{\MakeUppercase{\romannumeral #1}}
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+\newenvironment{_def}[1][]{%
+\addtocounter{counterDef}{1}
+\textbf{Определение \arabic{counterDef}.}
+}{\vspace{0.2cm}}
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+%///////////////////////////////////////////////////////////
+% \usepackage{fullpage}
+\title{Математический анализ 1} 
+\author{Rustem Sirazetdinov}
+\date{4/07/2022}
+
+\makeindex
+\begin{document}
+    % \maketitle   
+    % \tableofcontents
+    
+    
+    \chapter*{Вступление}
+    \addcontentsline{toc}{chapter}{Вступление}
+    
+    Здесь будет вступление? Может быть, если я его придумаю, конечно.
+    
+    \chapter{Действительные числа}    
+    В математическом анализе есть основная неарифметическая операция предельного перехода, с которой мы будем встречаться сплошь и рядом. В основе этой операции лежит свойство полноты(непрерывности) числового множества, на котором определена функция. А поскольку особое внимание в анализе уделяется числовым функциям, то лучшим вариантом будет начать изучение "особых"\ множеств с действительных чисел, поэтому цель этой главы: дать точное определение вещественных чисел и обратить внимание на их свойства. 
+    
+    \section{Аксиоматика и некоторые свойства}
+    
+    \subsection{Определение действительных чисел}\label{Определение}
+    
+    \begin{_def}\index{Действительные числа}
+        Множество \setR\ называется множеством \textbf{действительных чисел}, а его элементы - действительными числами, если выполнены следующий комплекс аксиом.
+    \end{_def}
+
+    (\rom{1}) \textsc{Аксиомы сложения.} \par
+    Определена операция сложения $$ +: \setR \times \setR \rightarrow \setR, $$ сопоставляющая каждой паре $ (x, y) $ элементов из \setR\ некоторый элемент $ x+y \in \setR $, называемый \textit{суммой} $ x $ и $ y $. При этом выполнены условия:
+    
+    \begin{enumerate}[noitemsep,nolistsep]
+        \item Существование \textit{нейтрального}\index{Аксиома!--существование нейтрального!--относительно сложения} элемента \[ x + 0 = 0 + x = x\ \forall x \in \setR \]
+        \item Существование \textit{противоположного}\textit{нейтрального}\index{Аксиома!--существование противоположного} элемента $ -x \in \setR $ такого, что \[ x + (-x)  = (-x) + x = 0\ \forall x \in \setR\]
+        \item Операция сложения ассоциативна\index{Аксиома!--ассоциативность!--сложения} \[ x + (y + z) = (x + y) + z\ \forall x, y, z \in \setR \]
+        \item Операция сложения коммутативна\index{Аксиома!--коммутативность!--сложения} \[ x + y = y + x\ \forall x, y \in \setR \]
+    \end{enumerate}
+    
+    \noindent Другими словами множество \setR\ это \textit{аддитивная абелева\footnote{т.е. коммутативная} группа}.\index{Группа!--аддитивная}\index{Группа!--абелева}
+   	
+   	\bigskip
+   	(\rom{2}) \textsc{Аксиомы умножения.} \par
+   	Определена операция умножения \[ \bigcdot\ : \setR \times \setR \rightarrow \setR, \] сопоставляющая каждой паре $ (x, y) $ элементов из \setR\ некоторый элемент $ x\ \bigcdot y \in \setR $, называемый \textit{произведением} $ x $ и $ y $. При этом выполнены условия:
+   	
+   \begin{enumerate}[noitemsep,nolistsep]
+		\item Существование \textit{нейтрального}\index{Аксиома!--существование нейтрального!--относительно умножения} элемента \[ x \cdot 1 = 1 \cdot x = x\ \forall x \in \setR \backslash{0} \]
+		\item Существование \textit{обратного}\index{Аксиома!--существование обратного} элемента $ x^{-1} \in \setR $ такого, что \[ x \cdot x^{-1}  = x^{-1} \cdot x = 1\ \forall x \in \setR \backslash 0 \]
+		\item Операция сложения ассоциативна\index{Аксиома!--ассоциативность!--умножения} \[ x \cdot (y \cdot z) = (x \cdot y) \cdot z\ \forall x, y, z \in \setR \]
+		\item Операция сложения коммутативна\index{Аксиома!--коммутативность!--умножения} \[ x \cdot y = y \cdot x\  \forall x, y \in \setR \]
+   \end{enumerate}
+   
+   \noindent Таким образом относительно умножения множество \setR $ \backslash 0 $ мультипликативная группа\index{Группа!--мультипликативная}.  
+   
+   \vspace{0.3cm}
+   (\rom{1}, \rom{2}) \textsc{Связь сложения и умножения.} \par
+   Операции сложения и умножения связаны законом \textit{дистрибутивности}\index{Дистрибутивность}. Умножение дистрибутивно по отношению к сложению \[ (x + y)z = xz + yz\ \forall x, y, z \in \setR \]
+   
+   \noindent \textbf{($ \ast $)} Если на каком-то множестве $ G $ действуют две бинарные операции, удовлетворяющие всем перечисленным аксиомам, то $ G $ называется \textit{алгебраическим полем}\index{Поле!--алгебраическое} или просто \textit{полем}\index{Поле}.
+   
+   \vspace{0.3cm}
+   (\rom{3}) \textsc{Аксиомы порядка.} \par
+   Между элементами \setR\ имеется отношение нестрогого линейного порядка $ \leq $, т.е. для всех элементов мы знаем результат\footnotemark{} выражения $ x \leq y $. При этом выполнены условия:
+   
+    \begin{enumerate}
+    	\item[0.] $ (x \leq x)\ \forall x \in \setR $ - \textit{рефлексивность}\index{Отношение!--рефлексивное}
+    	\item $ (x \leq y) \wedge (y \leq x) \Rightarrow (x = y) $ - \textit{симметричность}\index{Отношение!--симметричное}
+    	\item $ (x \leq y) \wedge (y \leq z) \Rightarrow (x \leq z) $ - \textit{транзитивность}\index{Отношение!--транзитивное}
+    	\item $ (x \leq y) \vee (y \leq x)\ \forall x, y \in \setR $
+	\end{enumerate}
+   
+    В таком случае отношение $ \leq $ называется отношением неравенства\index{Отношение!--неравенства}. 
+    
+    \noindent \textbf{($ \ast $)} Если множество удовлетворяет аксиомам 0,1,2, то говорят, что это множество \textit{частично упорядочено}\index{Порядок!--частичный}. Аксиома 3 говорит, что любые два элемента множества сравнимы, если же помимо остальных выполнена и она, то говорят, что множество \textit{линейно упорядочено}\index{Порядок!--линейный}.
+    
+    \noindent \textbf{($ \ast $)} На самом деле отношение порядка\index{Отношение!--порядка} будет играть важную роль, ведь отношение порядка позволяет нам сравнивать элементы множества, а это в свою очередь позволит нам ввести и использовать понятие монотонности. 
+    
+    \footnotetext{\textsc{true} or \textsc{false}}
+    
+    \vspace{0.3cm}
+    (\rom{1}, \rom{3}) \textsc{Связь сложения и порядка} \par
+    \[ (x \leq y) \Rightarrow (x + z \leq y + z)\ \forall x, y, z \in \setR \]
+    
+    (\rom{2}, \rom{3}) \textsc{Связь умножения и порядка} \par
+    \[ (0 \leq x) \wedge (0 \leq y) \Rightarrow (0 \leq x \cdot y) \]
+    
+    \noindent Теперь наконец-то перейдем к тому, ради чего все затевалось.
+    
+    (\rom{4}) \textsc{Аксиома полноты(непрерывности)} \par
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+\printindex
+\end{document}
+    
